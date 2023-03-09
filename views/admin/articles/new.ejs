@@ -10,7 +10,7 @@
             <form action="/categories/save" method="POST">
                 <input class="form-control" type="text" placeholder="Defina o título do artigo" name="title">
                 <br>
-                <textarea class="form-control" placeholder="Escreva o texto do artigo aqui!"></textarea>
+                <textarea class="form-control" placeholder="Escreva o texto do artigo aqui!" id="article"></textarea>
                 <br>
                 <button class="btn btn-dark">Criar categoria</button>
             </form>
@@ -18,3 +18,11 @@
     </div>
 </div>
 <%- include("../../partials/footer"); %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: "#article",
+        promotion: false,
+        plugins: 'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+    });
+</script>
