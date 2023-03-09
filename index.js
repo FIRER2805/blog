@@ -4,6 +4,7 @@ const port = 8080;
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
 const categoryController = require("./categories/CategoryController");
+const articleController = require("./articles/articleController");
 const category = require("./categories/category");
 const article = require("./articles/article");
 
@@ -24,6 +25,7 @@ connection.authenticate().then(()=>{
 });
 
 app.use("/",categoryController);
+app.use("/",articleController);
 
 app.get("/", (req, res)=>{
     res.render("index");
