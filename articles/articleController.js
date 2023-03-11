@@ -10,6 +10,14 @@ router.get("/admin/articles/new", (req, res)=>{
     });
 });
 
+router.get("/admin/articles/all", (req, res)=>{
+    article.findAll({
+        include: [{model: category}]
+    }).then((articles)=>{
+        res.render("admin/articles/all", {articles: articles});
+    });
+});
+
 router.post("/articles/save", (req,res) => {
     let title = req.body.title;
     let slug = slugify(title);
