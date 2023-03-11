@@ -18,6 +18,17 @@ router.get("/admin/articles/all", (req, res)=>{
     });
 });
 
+router.post("/admin/articles/delete", (req, res) =>{
+    let id = req.body.id;
+    article.destroy({
+        where: {
+            id: id
+        }
+    }).then(()=>{
+        res.redirect("/admin/articles/all");
+    });
+});
+
 router.post("/articles/save", (req,res) => {
     let title = req.body.title;
     let slug = slugify(title);

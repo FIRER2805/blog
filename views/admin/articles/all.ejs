@@ -23,7 +23,13 @@
                         <th><%= article.title %></th>
                         <th><%= article.slug %></th>
                         <th><%= article.category.title %></th>
-                        <th>ações</th>
+                        <th>
+                            <form method="POST" action="/admin/articles/delete"
+                            onsubmit="deleteConfirmation(event, this)">
+                                <input type="hidden" name="id" value="<%= article.id %>">
+                                <button class="btn btn-danger">deletar</a>
+                            </form>
+                        </th>
                     </tr>
                 <% }); %>
             </tbody>
