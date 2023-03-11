@@ -10,7 +10,7 @@
             <form action="/articles/save" method="POST">
                 <input class="form-control" type="text" placeholder="Defina o título do artigo" name="title">
                 <br>
-                <textarea class="form-control" placeholder="Escreva o texto do artigo aqui!" id="article"></textarea>
+                <textarea class="form-control" placeholder="Escreva o texto do artigo aqui!" id="article" name="body"></textarea>
                 <br>
                 <label>Categorias</label>
                 <select name="category" class="form-control">
@@ -31,6 +31,6 @@
         language: 'pt_BR',
         selector: "#article",
         promotion: false,
-        plugins: 'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+        plugins: 'autolink link lists advlist image print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
     });
 </script>
