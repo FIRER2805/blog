@@ -18,6 +18,12 @@ router.get("/admin/articles/all", (req, res)=>{
     });
 });
 
+router.get("/", (req, res)=>{
+    article.findAll().then(articles=>{
+        res.render("index", {articles: articles});
+    });
+});
+
 router.post("/admin/articles/delete", (req, res) =>{
     let id = req.body.id;
     article.destroy({

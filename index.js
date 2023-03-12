@@ -27,10 +27,6 @@ connection.authenticate().then(()=>{
 app.use("/",categoryController);
 app.use("/",articleController);
 
-app.get("/", (req, res)=>{
-    res.render("index");
-});
-
 app.listen(8080, ()=>{
     console.log("servidor rodando na url: localhost:" + port);
 });
