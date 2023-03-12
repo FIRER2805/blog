@@ -19,8 +19,32 @@ router.get("/admin/articles/all", (req, res)=>{
 });
 
 router.get("/", (req, res)=>{
-    article.findAll().then(articles=>{
+    article.findAll({
+        order: [
+            ["id", "desc"]
+        ]
+    }).then(articles=>{
         res.render("index", {articles: articles});
+    });
+});
+
+router.get("/:slug", (req, res)=>{
+    let slug = req.params.slug;
+    article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then(article=>{
+        if(article != undefined)
+        {
+            res.render("public/articles/home", {article: article});
+        }
+        else
+        {
+            res.redirect("/");
+        }
+    }).catch(error=>{
+        res.send("Erro!");
     });
 });
 
