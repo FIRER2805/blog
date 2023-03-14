@@ -52,7 +52,8 @@ router.post("/admin/categories/update", (req, res)=>{
     category.update({
         title: title,
         slug: slugify(title)
-    },{
+    },
+    {
         where:{
             id: id
         }}).then(()=>{

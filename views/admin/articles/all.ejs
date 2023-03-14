@@ -25,9 +25,14 @@
                         <th><%= article.category ? article.category.slug : "sem categoria" %></th>
                         <th>
                             <form method="POST" action="/admin/articles/delete"
+                            style="display: inline; margin-right: 10px"
                             onsubmit="deleteConfirmation(event, this)">
                                 <input type="hidden" name="id" value="<%= article.id %>">
                                 <button class="btn btn-danger">deletar</a>
+                            </form>
+                            <form method="POST" action="/admin/articles/edit">
+                                <input type="hidden" name="id" value="<%= article.id %>">
+                                <button class="btn btn-warning">editar</a>
                             </form>
                         </th>
                     </tr>

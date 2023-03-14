@@ -1,0 +1,44 @@
+<%- include("../../partials/header"); %>
+<%- include("../../partials/navbar"); %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Edição de artigo</h1>
+        </div>
+        <div class="card-body">
+            <form action="/admin/articles/update" method="POST">
+                <input type="hidden" value="<%= article.id %>" name="id">
+                <input class="form-control" type="text" placeholder="Defina o título da categoria"
+                 name="title" value="<%= article.title %>">
+                <br>
+                <textarea class="form-control" id="article" name="body" onload="updateContent()">
+                </textarea>
+                <br>
+                <select name="categoryId" class="form-control">
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category.id %>"><%= category.title %></option>
+                    <% }) %>
+                </select>
+                <br>
+                <button class="btn btn-dark">Editar artigo</button>
+            </form>
+            <input type="hidden" value="<%= article.body %>" id="initialContent">
+        </div>
+    </div>
+</div>
+<%- include("../../partials/footer"); %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector: "#article",
+        setup: function(editor){
+            editor.on("init", function(e){
+                editor.setContent(document.getElementById("initialContent").value)
+            })
+        },
+        promotion: false,
+        plugins: 'autolink link lists advlist image print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+    });
+</script>

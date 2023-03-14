@@ -109,4 +109,32 @@ router.post("/articles/save", (req,res) => {
     }).then(()=>{res.redirect("/")});
 });
 
+router.post("/admin/articles/edit", (req, res)=>{
+    let articleId = req.body.id;
+    article.findOne({where:{id: articleId}}).then(article=>{
+        category.findAll().then(categories=>{
+            res.render("admin/articles/edit",{
+                article: article,
+                categories: categories
+            });
+        });
+    });
+});
+
+router.post("/admin/articles/update", (req, res)=>{
+    let id = req.body.id;
+    let title = req.body.title;
+    let slug = slugify(title);
+    let body = req.body.body;
+    let categoryId = req.body.categoryId;
+
+    article.update({
+        title: title,
+        slug: slug,
+        body: body,
+        categoryId: categoryId
+    },
+    {where:{id: id}}).then(()=>{res.redirect("/admin/articles/all")});
+});
+
 module.exports = router;
