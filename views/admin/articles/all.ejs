@@ -22,7 +22,7 @@
                         <th><%= article.id %></th>
                         <th><%= article.title %></th>
                         <th><%= article.slug %></th>
-                        <th><%= article.category.title %></th>
+                        <th><%= article.category ? article.category.slug : "sem categoria" %></th>
                         <th>
                             <form method="POST" action="/admin/articles/delete"
                             onsubmit="deleteConfirmation(event, this)">

@@ -11,6 +11,7 @@ router.get("/admin/articles/new", (req, res)=>{
 });
 
 router.get("/admin/articles/all", (req, res)=>{
+    // left join nos artigos
     article.findAll({
         include: [{model: category}]
     }).then((articles)=>{
@@ -24,7 +25,12 @@ router.get("/", (req, res)=>{
             ["id", "desc"]
         ]
     }).then(articles=>{
-        res.render("index", {articles: articles});
+        category.findAll().then((categories)=>{
+            res.render("index", {
+                articles: articles,
+                categories: categories
+            });
+        });
     });
 });
 
@@ -37,7 +43,12 @@ router.get("/:slug", (req, res)=>{
     }).then(article=>{
         if(article != undefined)
         {
-            res.render("public/articles/home", {article: article});
+            category.findAll().then(categories=>{
+                res.render("public/articles/home",{
+                    article: article,
+                    categories: categories
+                });
+            });
         }
         else
         {
@@ -45,6 +56,31 @@ router.get("/:slug", (req, res)=>{
         }
     }).catch(error=>{
         res.send("Erro!");
+    });
+});
+
+router.get("/category/:slug", (req, res)=>{
+    let slug = req.params.slug;
+    // left join de uma categoria
+    category.findOne({
+        where: {slug: slug},
+        include: [{model: article}]
+    }).then(categoryFound=>{
+        if(categoryFound != undefined)
+        {
+            category.findAll().then(categories=>{
+                res.render("index",{
+                    articles: categoryFound.articles,
+                    categories: categories
+                });
+            });
+        }
+        else{
+            res.redirect("/");
+        }
+    }).catch(error=>{
+        console.log(error);
+        res.redirect("/");
     });
 });
 

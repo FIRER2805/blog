@@ -1,5 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/" style="color: white; text-decoration: none; font-size: 25px; margin-left: 20px" >GuiaPress</a>
     <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a href="/" class="nav-link">home</a>
+        </li>
+        <% categories.forEach(category=>{ %>
+            <li class="nav-item">
+                <a href="/category/<%=category.slug%>" class="nav-link"><%= category.title %></a>
+            </li>
+        <% }); %>
     </ul>
 </nav>
