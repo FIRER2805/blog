@@ -27,6 +27,6 @@ connection.authenticate().then(()=>{
 app.use("/",categoryController);
 app.use("/",articleController);
 
-app.listen(8080, ()=>{
+app.listen(port, ()=>{
     console.log("servidor rodando na url: localhost:" + port);
 });

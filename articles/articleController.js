@@ -11,7 +11,6 @@ router.get("/admin/articles/new", (req, res)=>{
 });
 
 router.get("/admin/articles/all", (req, res)=>{
-    // left join nos artigos
     article.findAll({
         include: [{model: category}]
     }).then((articles)=>{
@@ -61,16 +60,18 @@ router.get("/:slug", (req, res)=>{
 
 router.get("/category/:slug", (req, res)=>{
     let slug = req.params.slug;
-    // left join de uma categoria
+    // procura todos os artigos de uma categoria
     category.findOne({
         where: {slug: slug},
         include: [{model: article}]
     }).then(categoryFound=>{
-        if(categoryFound != undefined)
-        {
+        // se a categoria existe, ele pega todas as categorias existentes para o cabeçalho da página
+        if(categoryFound != undefined){
             category.findAll().then(categories=>{
                 res.render("index",{
+                    // os artigos encontrados na primeira query
                     articles: categoryFound.articles,
+                    // as categorias para o cabeçalho da página
                     categories: categories
                 });
             });
@@ -136,5 +137,21 @@ router.post("/admin/articles/update", (req, res)=>{
     },
     {where:{id: id}}).then(()=>{res.redirect("/admin/articles/all")});
 });
+
+router.get("/articles/page/:num",(req,res)=>{
+    const articlesToLoad = 5;
+    let page = parseInt(req.params.num);
+    let offset = 0;
+    if(!isNaN(page) && page > 1)
+    {
+        offset = page * articlesToLoad;
+    }
+    article.findAll({
+        limit: articlesToLoad,
+        offset: offset
+    }).then(articles => {
+        res.json(articles);
+    })
+})
 
 module.exports = router;

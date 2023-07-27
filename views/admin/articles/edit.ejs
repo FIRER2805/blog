@@ -17,13 +17,17 @@
                 <br>
                 <select name="categoryId" class="form-control">
                     <% categories.forEach(category => { %>
-                        <option value="<%= category.id %>"><%= category.title %></option>
+                        <% if(category.id == article.categoryId) { %>    
+                            <option value="<%= category.id %>" selected><%= category.title %></option>
+                        <% } else { %>
+                            <option value="<%= category.id %>"><%= category.title %></option>
+                        <% } %>
                     <% }) %>
                 </select>
                 <br>
                 <button class="btn btn-dark">Editar artigo</button>
             </form>
-            <input type="hidden" value="<%= article.body %>" id="initialContent">
+            <input type="hidden" value="<%= article.body %>" name="initialContent" id="initialContent">
         </div>
     </div>
 </div>
