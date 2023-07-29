@@ -144,22 +144,34 @@ router.get("/articles/page/:num",(req,res)=>{
     let offset = 0;
     if(!isNaN(page) && page > 1)
     {
-        offset = page * articlesToLoad;
+        offset = (page - 1) * articlesToLoad;
     }
+    
+    // buscando todos os artigos e contando a quantidade deles
     article.findAndCountAll({
         limit: articlesToLoad,
         offset: offset
     }).then(articles => {
+
+        // verificando se tem próxima página
         let next = false;
         if(articles.count > offset + articlesToLoad){
             next = true;
         }
+
+        // objeto contendo os artigos e se tem próxima página
         let result = {
             articles: articles,
             next: next
         }
-        res.json(result);
-    })
-})
+
+        category.findAll().then(categories => {
+            res.render("admin/articles/page",{
+                result: result,
+                categories: categories
+            });
+        });
+    });
+});
 
 module.exports = router;
