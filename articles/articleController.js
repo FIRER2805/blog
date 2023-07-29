@@ -146,11 +146,19 @@ router.get("/articles/page/:num",(req,res)=>{
     {
         offset = page * articlesToLoad;
     }
-    article.findAll({
+    article.findAndCountAll({
         limit: articlesToLoad,
         offset: offset
     }).then(articles => {
-        res.json(articles);
+        let next = false;
+        if(articles.count > offset + articlesToLoad){
+            next = true;
+        }
+        let result = {
+            articles: articles,
+            next: next
+        }
+        res.json(result);
     })
 })
 
