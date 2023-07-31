@@ -22,7 +22,8 @@ router.get("/", (req, res)=>{
     article.findAll({
         order: [
             ["id", "desc"]
-        ]
+        ],
+        limit: 5
     }).then(articles=>{
         category.findAll().then((categories)=>{
             res.render("index", {
@@ -150,7 +151,10 @@ router.get("/articles/page/:num",(req,res)=>{
     // buscando todos os artigos e contando a quantidade deles
     article.findAndCountAll({
         limit: articlesToLoad,
-        offset: offset
+        offset: offset,
+        oder:[
+            ["id", "DESC"]
+        ]
     }).then(articles => {
 
         // verificando se tem próxima página
@@ -167,6 +171,7 @@ router.get("/articles/page/:num",(req,res)=>{
 
         category.findAll().then(categories => {
             res.render("admin/articles/page",{
+                page: page,
                 result: result,
                 categories: categories
             });
