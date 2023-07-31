@@ -14,6 +14,23 @@
             </div>
             <br>
         <% }); %>
+        <div class="row">
+            <div class="column">
+
+                <!-- botão de previous -->
+                <% if(result.page == 2) {%>
+                    <a style="float:left" href="/"><<< Prev</a>
+                <% } else if(result.page > 2){ %>
+                    <a style="float:left" href="/articles/page/<%= result.page - 1%>"><<< Prev</a>
+                <% } %>
+
+                <!-- botão de next -->
+                <% if(result.next){ %>
+                    <a style="float:right" href="/articles/page/<%= result.page + 1%>">Next >>></a>
+                <% } %>
+            </div>
+        </div>
+        <hr>
     </div>
 </body>
 <%- include("../../partials/footer.ejs"); %>

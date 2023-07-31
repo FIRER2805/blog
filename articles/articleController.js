@@ -152,8 +152,8 @@ router.get("/articles/page/:num",(req,res)=>{
     article.findAndCountAll({
         limit: articlesToLoad,
         offset: offset,
-        oder:[
-            ["id", "DESC"]
+        order:[
+            ['id', 'DESC']
         ]
     }).then(articles => {
 
@@ -165,13 +165,13 @@ router.get("/articles/page/:num",(req,res)=>{
 
         // objeto contendo os artigos e se tem próxima página
         let result = {
+            page: page,
             articles: articles,
             next: next
         }
 
         category.findAll().then(categories => {
             res.render("admin/articles/page",{
-                page: page,
                 result: result,
                 categories: categories
             });
