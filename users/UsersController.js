@@ -4,7 +4,9 @@ const bcrypt = require("bcryptjs");
 const users = require("./users");
 
 router.get("/",(req,res) => {
-    res.send("<h1>Área de usuários</h1>");
+    users.findAll({order:[["id","asc"]]}).then(users => {
+        res.render("admin/users/users",{users: users});
+    });
 });
 
 router.get("/create",(req,res) => {
