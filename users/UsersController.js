@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+const users = require("./users");
 
 router.get("/",(req,res) => {
     res.send("<h1>Área de usuários</h1>");
@@ -12,7 +14,19 @@ router.get("/create",(req,res) => {
 router.post("/insert",(req,res)=>{
     let email = req.body.email;
     let password = req.body.password;
-    res.json({email, password});
+
+    let salt = bcrypt.genSaltSync(10);
+    let hash = bcrypt.hashSync(password,salt);
+
+    users.create({
+        e_mail: email,
+        password: hash
+    }).then(()=>{
+        res.redirect("/");
+    }).catch(error => {
+        res.send(`<h1>Erro ao cadastrar usuário no banco</h1>
+        <p>${error}</p>`);
+    });
 });
 
 module.exports = router;
