@@ -9,12 +9,19 @@ const usersController = require("./users/UsersController");
 const category = require("./categories/category");
 const article = require("./articles/article");
 const users = require("./users/users");
+const session = require("express-session");
 
 // View engine
 app.set("view engine", "ejs");
 
 // Static
 app.use(express.static("public"));
+
+// Sessões
+app.use(session({
+    secret: "Sessão",
+    cookie: {maxAge: null}
+}));
 
 // Body-parser
 app.use(bodyParser.urlencoded({extended: false}));

@@ -18,7 +18,7 @@ router.get("/admin/articles/all", (req, res)=>{
     });
 });
 
-router.get("/", (req, res)=>{
+router.get("/",(req, res)=>{
     article.findAll({
         order: [
             ["id", "desc"]
