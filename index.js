@@ -18,9 +18,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // Sessões
+// 3 horas de duração
 app.use(session({
     secret: "Sessão",
-    cookie: {maxAge: null}
+    cookie: {maxAge: 10800000}
 }));
 
 // Body-parser
