@@ -11,12 +11,23 @@
                 <thead>
                     <th>Id</th>
                     <th>E-mail</th>
+                    <th>Ações</th>
                 </thead>
                 <tbody>
                     <% users.forEach(user => { %>
                         <tr>
                             <td><%= user.id %></td>
                             <td><%= user.e_mail %></td>
+                            <td>
+                                <form action="edit/" method="post">
+                                    <input type="hidden" name="id" value="<%= user.id %>"></input>
+                                    <button class="btn btn-warning">editar</button>
+                                </form>
+                                <form action="delete/" method="post" onsubmit="deleteConfirmation(event, this)">
+                                    <input type="hidden" name="id" value="<%= user.id %>"></input>
+                                    <button class="btn btn-danger">deletar</button>
+                                </form>
+                            </td>
                         </tr>
                     <% }); %>
                 </tbody>
@@ -24,5 +35,6 @@
         </div>
     </div>
 </div>
+<script src="/js/myJsFiles/formFunctions.js"></script>
 
 <%- include("../../partials/footer.ejs") %>

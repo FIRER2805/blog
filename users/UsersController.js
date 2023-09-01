@@ -60,6 +60,45 @@ router.post("/authenticate", (req,res)=>{
     });
 });
 
+router.post("/edit",(req, res)=>{
+    let id = req.body.id;
+    users.findByPk(id).then(user=>{
+        res.render("admin/users/edit",{user: user});
+    });
+});
+
+router.post("/update",(req, res)=>{
+    let id = req.body.id;
+    let email = req.body.e_mail;
+    let password = req.body.password;
+    
+    users.update({
+        e_mail: email,
+        password: password},
+        {where: 
+            {id: id}
+        }
+    ).then(()=>{res.redirect("/")})
+    .catch(error=>{
+        console.log(error);
+        res.redirect("/");
+    });
+});
+
+router.post("/delete",(req, res)=>{
+    let id = req.body.id;
+    users.destroy({
+        where: {
+            id: id
+        }
+    })
+    .then(()=> {res.redirect("/")})
+    .catch(error => {
+        console.log(error);
+        res.redirect("/")
+    });
+});
+
 router.get("/logout",(req, res)=>{
     req.session.user = undefined;
     res.redirect("/");

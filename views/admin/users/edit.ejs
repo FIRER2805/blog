@@ -1,0 +1,23 @@
+<%- include("../../partials/header"); %>
+<%- include("../../partials/navbar"); %>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Edição de categoria</h1>
+        </div>
+        <div class="card-body">
+            <form action="/admin/users/update" method="POST">
+                <input class="form-control" type="email" placeholder="Defina o e-mail"
+                 name="e_mail" value="<%= user.e_mail %>" required>
+                </br>
+                 <input class="form-control" type="password" placeholder="Defina a senha"
+                 name="passoword" required>
+                 <input type="hidden" name="id" value="<%= user.id %>">
+                <br>
+                <button class="btn btn-dark">Editar categoria</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include("../../partials/footer"); %>
