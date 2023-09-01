@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 // informações do banco de dados
 const name = "db_guiaPress";
 const user = "root";
-const password = "Lasanha2805g";
+const password = "root";
 const server = "localhost";
 const database = "mysql";
 const timeZone = "-03:00";

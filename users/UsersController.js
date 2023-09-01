@@ -10,7 +10,7 @@ router.get("/",authenticate,(req,res) => {
     });
 });
 
-router.get("/create",authenticate,(req,res) => {
+router.get("/create",(req,res) => {
     res.render("admin/users/create");
 });
 
@@ -71,7 +71,7 @@ router.post("/update",(req, res)=>{
     let id = req.body.id;
     let email = req.body.e_mail;
     let password = req.body.password;
-    
+
     users.update({
         e_mail: email,
         password: password},
